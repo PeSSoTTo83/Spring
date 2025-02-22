@@ -1,0 +1,171 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilo del título principal */
+h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+/* Bordes de la tabla */
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+/* Estilo de las celdas */
+th, td {
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1em;
+    white-space: nowrap;
+}
+
+/* Encabezados con fondo degradado */
+th {
+    background: linear-gradient(to right, #007BFF, #00c6ff);
+    color: white;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+/* Filas alternas */
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Efecto hover */
+tr:hover {
+    background: #ffcf71;
+    transition: 0.3s;
+}
+
+/* Contenedor de acciones */
+.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* Botones generales */
+a, .btn {
+    text-decoration: none;
+    color: #fff;
+    background: #007BFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* Efecto hover de los botones */
+a:hover, .btn:hover {
+    background: #ff7e5f;
+}
+
+/* Botón para agregar aulas */
+.btn-add {
+    background: linear-gradient(to right, #28a745, #70db70);
+}
+
+.btn-add:hover {
+    background: #218838;
+}
+
+/* Botón de eliminar */
+.btn-danger {
+    background: linear-gradient(to right, #dc3545, #ff6b6b);
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+/* Formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón Guardar */
+.btn-save {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}

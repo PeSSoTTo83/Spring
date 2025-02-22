@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Aula</title>
+    <link rel="stylesheet" th:href="@{/css/estilos1.css}">
+</head>
+<body>
+    <h2>Editar Aula</h2>
+    <form th:action="@{/aulas/save}" th:object="${aula}" method="post">
+        
+        <!-- Campo oculto para el id -->
+        <input type="hidden" th:field="*{idAula}">
+        
+        <label for="nombreAula">Nombre Aula:</label>
+        <input type="text" id="nombreAula" th:field="*{nombreAula}" required>
+        
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" th:field="*{descripcion}" required>
+        
+        <label for="capacidad">Capacidad:</label>
+        <input type="number" id="capacidad" th:field="*{capacidad}" required>
+        
+        <label for="proyector">Proyector:</label>
+        <input type="checkbox" id="proyector" th:field="*{proyector}">
+        
+        <label for="smartTv">Smart TV:</label>
+        <input type="checkbox" id="smartTv" th:field="*{smartTv}">
+        
+        <label for="hdmi">HDMI:</label>
+        <input type="checkbox" id="hdmi" th:field="*{hdmi}">
+        
+        <label for="applet">Apple TV:</label>
+        <input type="checkbox" id="applet" th:field="*{applet}">
+        
+        <label for="aireAcondicionado">Aire Acondicionado:</label>
+		<input type="checkbox" id="aireAcondicionado" th:field="*{aireAcondicionado}">
+
+        
+        <label for="enchufes">Número de Enchufes:</label>
+        <input type="number" id="enchufes" th:field="*{enchufes}" step="any">
+        
+        <label for="activo">Activo:</label>
+        <input type="checkbox" id="activo" th:field="*{activo}">
+        
+        <label for="tipoAula">Tipo de Aula:</label>
+        <select id="tipoAula" th:field="*{tipoAula.idTipo}" required>
+            <option value="" disabled>-- Seleccione un tipo --</option>
+            <option th:each="tipo : ${tiposAula}" 
+                    th:value="${tipo.idTipo}" 
+                    th:text="${tipo.descripcion}"
+                    th:selected="${tipo.idTipo == aula.tipoAula.idTipo}"></option>
+        </select>
+        
+        <label for="planta">Planta:</label>
+        <select id="planta" th:field="*{planta.idPlanta}" required>
+            <option value="" disabled>-- Seleccione una planta --</option>
+            <option th:each="planta : ${plantas}" 
+                    th:value="${planta.idPlanta}" 
+                    th:text="${planta.descripcion}"
+                    th:selected="${planta.idPlanta == aula.planta.idPlanta}"></option>
+        </select>
+        
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    
+    <div class="actions">
+        <a th:href="@{/aulas}" class="btn">Volver</a>
+    </div>
+</body>
+</html>

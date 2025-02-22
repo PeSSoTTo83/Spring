@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Aulas</title>
+    <link rel="stylesheet" th:href="@{/css/aulas.css}">
+</head>
+<body>
+
+    <h1>Lista de Aulas</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Planta</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="aula : ${aulas}">
+            <td th:text="${aula.idAula}"></td>
+            <td th:text="${aula.nombreAula}"></td>
+            <td th:text="${aula.capacidad}"></td>
+            <!-- Se comprueba que aula.planta no sea nulo -->
+            <td th:text="${(aula.planta != null) ? aula.planta.descripcion : 'Sin asignar'}"></td>
+            <!-- Se usa && en lugar de and y se verifica que activo no sea nulo -->
+            <td th:text="${(aula.activo != null && aula.activo) ? 'Sí' : 'No'}"></td>
+            <td>
+				<a th:href="@{/aulas/{id}(id=${aula.idAula})}">Ver</a>
+                <a th:href="@{/aulas/delete/{id}(id=${aula.idAula})}" onclick="return confirm('¿Seguro que quieres eliminar esta aula?')">Eliminar</a>
+                <a th:href="@{/aulas/add}" class="btn-add">Añadir</a>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

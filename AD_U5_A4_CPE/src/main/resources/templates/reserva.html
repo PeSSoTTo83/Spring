@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Reservas</title>
+  <link rel="stylesheet" th:href="@{/css/reserva.css}" />
+  
+  <!-- FullCalendar CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" />
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  
+  <!-- (Opcional) Puedes incluir jQuery si lo necesitas para otros scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Estilos para el calendario, si es necesario -->
+  <style>
+    /* Asegura que el calendario se centre y sea responsivo */
+    #calendar {
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Bloque de script para inicializar FullCalendar -->
+  <script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        dayMaxEventRows: 3,             // Limita a 3 eventos visibles por día
+        
+        // Anulamos el comportamiento del "+ more" para que no muestre el popover por defecto
+        moreLinkClick: function(info) {
+          // Retornamos false para evitar el popover; de este modo se activará el dateClick al hacer click en la celda
+          return false;
+        },
+        headerToolbar: {
+          left: 'myPrev,myNext today',
+          center: 'title',
+          right: 'dayGridMonth'
+        },
+        customButtons: {
+          myPrev: {
+            icon: 'chevron-left',
+            click: function() {
+              calendar.prev();
+            }
+          },
+          myNext: {
+            icon: 'chevron-right',
+            click: function() {
+              calendar.next();
+            }
+          }
+        },
+        locale: 'es',
+        events: '/reserva/reservas/eventos',  // Endpoint JSON de eventos
+        dateClick: function(info) {
+          // Al hacer click en la celda del día, obtener todos los eventos de ese día
+          var clickedDate = info.date;
+          // Formatear la fecha a "yyyy-MM-dd"
+          var formattedClickedDate = FullCalendar.formatDate(clickedDate, {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          });
+          // Obtener todos los eventos actualmente en el calendario
+          var allEvents = calendar.getEvents();
+          // Filtrar los eventos cuya fecha de inicio coincida (ignorando la hora)
+          var eventsForDay = allEvents.filter(function(event) {
+            var eventStart = event.start;
+            var formattedEventStart = FullCalendar.formatDate(eventStart, {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            });
+            return formattedClickedDate === formattedEventStart;
+          });
+          
+          if (eventsForDay.length > 0) {
+            // Mostrar los títulos de los eventos en un alert (puedes personalizar para mostrar un modal)
+            var eventTitles = eventsForDay.map(function(e) {
+              return e.title;
+            }).join("\n");
+            alert("Eventos para " + info.dateStr + ":\n" + eventTitles);
+          } else {
+            alert("No hay eventos para " + info.dateStr);
+          }
+        }
+      });
+      calendar.render();
+    });
+  </script>
+  
+  <h1>Gestión de Reservas</h1>
+  
+  <h2>Lista de Reservas</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID Reserva</th>
+        <th>Fecha Desde</th>
+        <th>Fecha Hasta</th>
+        <th>Hora Desde</th>
+        <th>Hora Hasta</th>
+        <th>Validar</th>
+        <th>Activo</th>
+        <th>AULA ID</th>
+        <th>USUARIO ID</th>
+        <th>CURSO ID</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="r : ${reservas}">
+        <td th:text="${r.idreserva}"></td>
+        <td th:text="${r.fechadesde}"></td>
+        <td th:text="${r.fechahasta}"></td>
+        <td th:text="${r.horadesde}"></td>
+        <td th:text="${r.horahasta}"></td>
+        <td th:text="${r.validar}"></td>
+        <td th:text="${r.activo}"></td>
+        <td th:text="${r.aulaidaula}"></td>
+        <td th:text="${r.usuarioidusuario}"></td>
+        <td th:text="${r.cursoidcurso}"></td>
+        <td>
+          <form th:action="@{/reserva/delete/{id}(id=${r.idreserva})}" method="post">
+            <button type="submit" onclick="return confirm('¿Eliminar esta reserva?');">
+              Eliminar
+            </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h2>Nueva Reserva</h2>
+  <form th:action="@{/reserva}" th:object="${nuevaReserva}" method="post">
+    <label for="fechadesde">Fecha Desde:</label>
+    <input type="date" id="fechadesde" th:field="*{fechadesde}" />
+  
+    <label for="fechahasta">Fecha Hasta:</label>
+    <input type="date" id="fechahasta" th:field="*{fechahasta}" />
+  
+    <label for="horadesde">Hora Desde:</label>
+    <input type="time" id="horadesde" th:field="*{horadesde}" />
+  
+    <label for="horahasta">Hora Hasta:</label>
+    <input type="time" id="horahasta" th:field="*{horahasta}" />
+  
+    <!-- Campo validar (1=Sí, 0=No) -->
+    <label for="validar">Validar (1=Sí, 0=No):</label>
+    <select id="validar" th:field="*{validar}">
+      <option value="1">1</option>
+      <option value="0">0</option>
+    </select>
+  
+    <!-- Campo activo (1=Sí, 0=No) -->
+    <label for="activo">Activo (1=Sí, 0=No):</label>
+    <select id="activo" th:field="*{activo}">
+      <option value="1">1</option>
+      <option value="0">0</option>
+    </select>
+  
+    <!-- AULA ID -->
+    <label for="aulaidaula">AULA ID:</label>
+    <input type="number" id="aulaidaula" th:field="*{aulaidaula}" />
+  
+    <!-- USUARIO ID -->
+    <label for="usuarioidusuario">USUARIO ID:</label>
+    <input type="number" id="usuarioidusuario" th:field="*{usuarioidusuario}" />
+  
+    <!-- CURSO ID -->
+    <label for="cursoidcurso">CURSO ID:</label>
+    <input type="number" id="cursoidcurso" th:field="*{cursoidcurso}" />
+  
+    <button type="submit">Agregar</button>
+  </form>
+  
+  <!-- Contenedor para el calendario -->
+  <div id="calendar"></div>
+  
+</body>
+</html>

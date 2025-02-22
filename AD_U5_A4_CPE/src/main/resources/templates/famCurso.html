@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestión de FamCurso</title>
+    <!-- Ajusta la ruta de tu CSS si lo necesitas -->
+    <link rel="stylesheet" th:href="@{/css/famcurso.css}" />
+</head>
+<body>
+
+    <h1>Gestión de FamCurso</h1>
+
+    <h2>Lista de FamCursos</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID FamCurso</th>
+                <th>Descripción</th>
+                <th>Activo</th>
+                <th>SubUsoAula</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iteramos sobre la lista de FamCurso -->
+            <tr th:each="fc : ${famCursos}">
+                <td th:text="${fc.idfamcurso}"></td>
+                <td th:text="${fc.descripcion}"></td>
+                <td th:text="${fc.activo}"></td>
+                <!-- Mostramos la descripción del SubUsoAula (o cualquier campo) -->
+                <td th:text="${fc.subUsoAula.descripcion}"></td>
+                <td>
+                    <!-- Formulario para eliminar vía POST -->
+                    <form th:action="@{/famcurso/delete/{id}(id=${fc.idfamcurso})}" method="post">
+                        <button type="submit"
+                                onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Agregar Nuevo FamCurso</h2>
+
+    <!-- Formulario vinculado a "nuevoFamCurso" -->
+    <form th:action="@{/famcurso}" th:object="${nuevoFamCurso}" method="post">
+        <label for="descripcion">Descripción:</label>
+        <!-- Enlazamos con famCurso.descripcion -->
+        <input type="text" id="descripcion" th:field="*{descripcion}" required />
+
+        <label for="activo">Activo (1 para Sí, 0 para No):</label>
+        <!-- Enlazamos con famCurso.activo -->
+        <select id="activo" th:field="*{activo}" required>
+            <option value="1">1</option>
+            <option value="0">0</option>
+        </select>
+
+        <!-- Select para la relación subUsoAula -->
+        <label for="subUsoAula">Sub UsoAula:</label>
+        <select id="subUsoAula" th:field="*{subUsoAula.idsubuso}" required>
+            <option th:each="su : ${subUsoAulas}"
+                    th:value="${su.idsubuso}"
+                    th:text="${su.descripcion}">
+            </option>
+        </select>
+
+        <button type="submit">Agregar</button>
+    </form>
+
+</body>
+</html>

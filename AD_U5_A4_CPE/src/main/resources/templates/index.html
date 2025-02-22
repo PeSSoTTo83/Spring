@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Bienvenido</title>
+    <link rel="stylesheet" href="/css/paginaPrincipal.css">
+</head>
+<body>
+    <header>
+        <h1 th:utext="${titulo}">Página Principal</h1>
+    </header>
+
+    <main>
+        <section class="contenedor">
+            <div class="columna">
+                <h2>Gestión</h2>
+                <ul>
+                    
+                    <li><a th:href="@{/edificios}">Edificios</a></li>
+                    <li><a th:href="@{/plantas}">Plantas</a></li>
+					<li><a th:href="@{/aulas}">Aulas</a></li>
+                    <li><a th:href="@{/usoaula}">UsoAula</a></li>
+                    <li><a th:href="@{/subusoaula}">SubUsoAula</a></li>
+                    <li><a th:href="@{/famcurso}">FamCurso</a></li>
+                    <li><a th:href="@{/curso}">Curso</a></li>
+                    <li><a th:href="@{/tipousuario}">TipoUsuario</a></li>
+                    <li><a th:href="@{/usuario}">Usuario</a></li>
+                    <li><a th:href="@{/reserva}">Reserva</a></li>
+                    <li><a th:href="@{/login}">Login</a></li>
+                    <li><a th:href="@{/reservausuario}">reservausuario</a></li>
+                    
+         
+                    
+                    
+                    
+                    
+                </ul>
+            </div>
+
+            <div class="columna">
+                <h2>Información</h2>
+                <p>Administra y gestiona los datos de directores, películas y ciclistas en nuestra plataforma.</p>
+                <p>Haz clic en cualquiera de las opciones para empezar.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Menú Superior</title>      
+    <link rel="stylesheet" th:href="@{/css/estilos1.css}">
+</head>
+<body>
+<div th:fragment="menu">
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/director}">Gestión de Directores</a>
+                <ul>
+                    <li><a th:href="@{/director/add}">Añadir</a></li>
+                    <li><a th:href="@{/director/update}">Modificar</a></li>
+                    <li><a th:href="@{/director/delete}">Eliminar</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/pelicula}">Gestión de Películas</a></li>
+            <li><a th:href="@{/ciclistas}">Gestión de Ciclistas</a></li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

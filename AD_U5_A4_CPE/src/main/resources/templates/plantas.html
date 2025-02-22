@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Plantas</title>
+    <link rel="stylesheet" th:href="@{/css/plantas.css}">
+</head>
+<body>
+    <h1>Lista de Plantas</h1>
+    
+    
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Aulas Docentes</th>
+            <th>Aulas Auxiliares</th>
+            <th>Edificio</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="planta : ${plantas}">
+            <td th:text="${planta.idPlanta}"></td>
+            <td th:text="${planta.descripcion}"></td>
+            <td th:text="${planta.nAulasDocentes}"></td>
+            <td th:text="${planta.nAulaAuxiliares}"></td>
+            <td th:text="${planta.edificio.descripcion}"></td>
+            <td>
+			    <a th:href="@{/plantas/detalle/{id}(id=${planta.idPlanta})}">Ver</a>
+			    <a th:href="@{/plantas/delete/{id}(id=${planta.idPlanta})}" onclick="return confirm('¿Seguro que quieres eliminar esta planta?')">Eliminar</a>
+			    <a th:href="@{/plantas/add}" class="btn-add">Añadir</a>
+			</td>
+
+        </tr>
+    </table>
+</body>
+</html>

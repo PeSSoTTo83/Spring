@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles de Planta</title>
+    <link rel="stylesheet" th:href="@{/css/plantas.css}">
+</head>
+<body>
+    <h1>Detalles de la Planta</h1>
+    <p><strong>Descripción:</strong> <span th:text="${planta.descripcion}"></span></p>
+    <p><strong>Aulas Docentes:</strong> <span th:text="${planta.nAulasDocentes}"></span></p>
+    <p><strong>Aulas Auxiliares:</strong> <span th:text="${planta.nAulaAuxiliares}"></span></p>
+    <p><strong>Edificio:</strong> <span th:text="${planta.edificio.descripcion}"></span></p>
+    <p><strong>Estado:</strong> <span th:text="${planta.activo ? 'Activa' : 'Inactiva'}"></span></p>
+    <a href="/plantas">Volver a la lista</a>
+</body>
+</html>

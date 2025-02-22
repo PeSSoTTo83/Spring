@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Edificio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/estilos1.css}">
+</head>
+<body>
+
+    <!-- Incluir menú de navegación -->
+    <div th:insert="menu :: menu"></div>
+
+    <div class="container mt-5">
+        <h2>Agregar Edificio</h2>
+        <form th:action="@{/edificio/save}" method="post">
+        
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" th:required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="n_Aulas">Número de Aulas:</label>
+                <input type="number" class="form-control" id="n_Aulas" name="nAulas" th:required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="n_PuertasAcceso">Número de Puertas de Acceso:</label>
+                <input type="number" class="form-control" id="n_PuertasAcceso" name="nPuertasAcceso" th:required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="ubicacion">Ubicación:</label>
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" th:required="required">
+            </div>
+
+            <div class="form-group">
+                <label for="activo">Activo:</label>
+                <select class="form-control" id="activo" name="activo">
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Información de los Edificios</title>
+    <link rel="stylesheet" th:href="@{/css/estilos1.css}">
+</head>
+
+<body>
+    <!-- Información de los edificios -->
+    <h1>Información de los Edificios</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID Edificio</th>
+                <th>Descripción</th>
+                <th>Número de Aulas</th>
+                <th>Número de Puertas de Acceso</th>
+                <th>Ubicación</th>
+                <th>Activo</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre los edificios -->
+            <tr th:each="edificio : ${edificios}">
+                <td>
+                    <!-- Enlace a la página del edificio -->
+                    <a th:href="@{/edificios/{id}(id=${edificio.idEdificio})}">
+                        <span th:text="${edificio.idEdificio}">ID</span>
+                    </a>
+                </td>
+                <td th:text="${edificio.descripcion}">Descripción</td>
+                <td th:text="${edificio.nAulas}">Número de Aulas</td>
+                <td th:text="${edificio.nPuertasAcceso}">Número de Puertas</td>
+                <td th:text="${edificio.ubicacion}">Ubicación</td>
+                <td th:text="${edificio.activo} ? 'Sí' : 'No'">Activo</td>
+                <td>
+                    <!-- Botón de editar -->
+                    <a th:href="@{/edificio/update/{id}(id=${edificio.idEdificio})}">
+                        <img th:src="@{/img/edit.png}" width="16" height="16">
+                        Editar
+                    </a>
+                </td>
+                <td>
+                    <!-- Botón de eliminar -->
+                    <a th:href="@{/edificio/delete/{id}(id=${edificio.idEdificio})}" onclick="return confirm('¿Seguro que deseas eliminar este edificio?');">
+                        <img th:src="@{/img/delete.png}" width="16" height="16">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <!-- Botón de añadir edificio -->
+                    <form action="/edificio/add">
+                        <button type="submit" class="button">Añadir Edificio</button>
+                    </form>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- Botón de volver atrás -->
+    <div>
+        <form action="/">
+            <button type="submit" class="button">Volver al Inicio</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

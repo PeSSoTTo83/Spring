@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Planta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/estilos1.css}">
+</head>
+<body>
+
+    <!-- Incluir menú de navegación -->
+    <div th:insert="menu :: menu"></div>
+
+    <div class="container mt-5">
+        <h2>Agregar Planta</h2>
+        <form th:action="@{/plantas/save}" th:object="${planta}" method="post">
+        
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nAulasDocentes">Número de Aulas Docentes:</label>
+                <input type="number" class="form-control" id="nAulasDocentes" name="nAulasDocentes" th:field="*{nAulasDocentes}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nAulaAuxiliares">Número de Aulas Auxiliares:</label>
+                <input type="number" class="form-control" id="nAulaAuxiliares" name="nAulaAuxiliares" th:field="*{nAulaAuxiliares}" required>
+            </div>
+			<div class="form-group">
+    			<label for="edificio">Edificio:</label>
+    			<select class="form-control" id="edificio" name="edificio" th:field="*{edificio}">
+					    <option value="" disabled selected>Seleccione un edificio</option>
+					    <option th:each="edificio : ${edificios}"
+					            th:value="${edificio.idEdificio}"
+					            th:text="${edificio.descripcion}">Edificio</option>
+				</select>
+
+			</div>
+			
+            <div class="form-group">
+                <label for="activo">Activo:</label>
+                <select class="form-control" id="activo" name="activo" th:field="*{activo}">
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Aula</title>
+    <link rel="stylesheet" th:href="@{/css/aulas.css}">
+</head>
+<body>
+
+    <h1>Detalle del Aula</h1>
+
+    <div class="container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <td th:text="${aula.idAula}"></td>
+            </tr>
+            <tr>
+                <th>Nombre Aula</th>
+                <td th:text="${aula.nombreAula}"></td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td th:text="${aula.descripcion}"></td>
+            </tr>
+            <tr>
+                <th>Capacidad</th>
+                <td th:text="${aula.capacidad}"></td>
+            </tr>
+            <tr>
+                <th>Proyector</th>
+                <td th:text="${(aula.proyector != null and aula.proyector) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>Smart TV</th>
+                <td th:text="${(aula.smartTv != null and aula.smartTv) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>HDMI</th>
+                <td th:text="${(aula.hdmi != null and aula.hdmi) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>Apple TV</th>
+                <td th:text="${(aula.applet != null and aula.applet) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>Aire Acondicionado</th>
+                <td th:text="${(aula.aireAcondicionado != null and aula.aireAcondicionado) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>Número de Enchufes</th>
+                <td th:text="${aula.enchufes}"></td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td th:text="${(aula.activo != null and aula.activo) ? 'Sí' : 'No'}"></td>
+            </tr>
+            <tr>
+                <th>Tipo de Aula</th>
+				<td th:text="${aula.tipoAula != null ? aula.tipoAula.nombretipo : 'No asignado'}"></td>
+            </tr>
+            <tr>
+                <th>Planta</th>
+                <td th:text="${aula.planta != null ? aula.planta.descripcion : 'No asignada'}"></td>
+            </tr>
+        </table>
+
+        <div class="actions">
+            <a th:href="@{/aulas}" class="btn">Volver</a>
+            <a th:href="@{/aulas/edit/{id}(id=${aula.idAula})}" class="btn btn-edit">Editar</a>
+        </div>
+    </div>
+
+</body>
+</html>
